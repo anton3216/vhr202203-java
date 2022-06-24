@@ -1,0 +1,10 @@
+server:
+  port: 9999
+
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql:///vhr?serverTimezone=UTC
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: root
