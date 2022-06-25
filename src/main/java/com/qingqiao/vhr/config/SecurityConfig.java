@@ -7,20 +7,17 @@ import com.qingqiao.vhr.utils.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.CredentialsExpiredException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
+import org.springframework.security.authentication.*;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.security.auth.login.AccountExpiredException;
 import javax.security.auth.login.AccountNotFoundException;
+import javax.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -76,9 +73,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         error.setMsg("账户被锁定，请联系管理员!");
                     } else if (e instanceof CredentialsExpiredException) {
                         error.setMsg("密码过期，请联系管理员!");
-                    }/* else if (e instanceof AccountExpiredException) {
-                        respBean.setMsg("账户过期，请联系管理员!");
-                    }*/ else if (e instanceof DisabledException) {
+                    } else if (e instanceof AccountExpiredException) {
+                        error.setMsg("账户过期，请联系管理员!");
+                    } else if (e instanceof DisabledException) {
                         error.setMsg("账户被禁用，请联系管理员!");
                     } else if (e instanceof BadCredentialsException) {
                         error.setMsg("用户名或者密码输入错误，请重新输入!");
@@ -94,7 +91,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutSuccessHandler((httpServletRequest, httpServletResponse, authentication) -> {
-                    System.out.println(">>>>>>>>>>>>>>>>>>>注销成功");
+                    httpServletResponse.setContentType("application/json;charset=utf-8");
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    ResponseBean ok = ResponseBean.ok("注销成功!");
+                    String s = objectMapper.writeValueAsString(ok);
+                    httpServletResponse.getWriter().print(s);
                 })
                 .and()
                 .csrf().disable();
