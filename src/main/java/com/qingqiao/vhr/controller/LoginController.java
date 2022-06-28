@@ -19,4 +19,15 @@ public class LoginController {
         String s = objectMapper.writeValueAsString(error);
         return s;
     }
+
+    @GetMapping("/employee/basic/hello")
+    public String hello1(){
+        return "hello11111111111111111111111111111111111111111";
+    }
+
+    @GetMapping("/employee/advanced/hello")
+    public String hello2(){
+        return "hello22222222222222222222222222222222222222222";
+    }
+
 }

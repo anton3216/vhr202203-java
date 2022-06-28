@@ -9,6 +9,9 @@
   <sql id="Base_Column_List">
     id, name, nameZh
   </sql>
+  <select id="getRolesByHrId" resultType="com.qingqiao.vhr.bean.Role">
+    select r.* from role r join hr_role hrr on hrr.rid = r.id where hrid = #{hrid}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

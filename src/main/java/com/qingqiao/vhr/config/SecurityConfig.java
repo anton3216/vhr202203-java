@@ -2,27 +2,30 @@ package com.qingqiao.vhr.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qingqiao.vhr.bean.Hr;
-import com.qingqiao.vhr.service.HrService;
+import com.qingqiao.vhr.service.impl.HrService;
 import com.qingqiao.vhr.utils.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.*;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
-import javax.security.auth.login.AccountNotFoundException;
-import javax.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
-import java.util.Arrays;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private HrService hrService;
+    @Autowired
+    private MyFilterInvocation myFilterInvocation;
+    @Autowired
+    private MyDecisionManager myDecisionManager;
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -38,8 +41,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .anyRequest()
-                .authenticated()
+//                .anyRequest()
+//                .authenticated()
+                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+
+                    @Override
+                    public <O extends FilterSecurityInterceptor> O postProcess(O object) {
+                        object.setAccessDecisionManager(myDecisionManager);
+                        object.setSecurityMetadataSource(myFilterInvocation);
+                        return object;
+                    }
+                })
                 .and()
                 .formLogin()
 //                .usernameParameter("username")

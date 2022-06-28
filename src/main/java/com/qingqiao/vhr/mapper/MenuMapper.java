@@ -1,7 +1,11 @@
 package com.qingqiao.vhr.mapper;
 
 import com.qingqiao.vhr.bean.Menu;
+import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
+@Mapper
 public interface MenuMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +18,8 @@ public interface MenuMapper {
     int updateByPrimaryKeySelective(Menu record);
 
     int updateByPrimaryKey(Menu record);
+
+    List<Menu> getMenuByHrId(Integer hrid);
+
+    List<Menu> getAllMenusByRid();
 }
