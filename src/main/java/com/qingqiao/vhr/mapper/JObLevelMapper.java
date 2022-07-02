@@ -1,17 +1,26 @@
 package com.qingqiao.vhr.mapper;
 
-import com.qingqiao.vhr.bean.JObLevel;
+import com.qingqiao.vhr.bean.JobLevel;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
+@Mapper
 public interface JObLevelMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(JObLevel record);
+    int insert(JobLevel record);
 
-    int insertSelective(JObLevel record);
+    int insertSelective(JobLevel record);
 
-    JObLevel selectByPrimaryKey(Integer id);
+    JobLevel selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(JObLevel record);
+    int updateByPrimaryKeySelective(JobLevel record);
 
-    int updateByPrimaryKey(JObLevel record);
+    int updateByPrimaryKey(JobLevel record);
+
+    int deleteManyJobLevel(@Param("ids") Integer[] ids);
+
+    List<JobLevel> getAllJobLevels();
 }

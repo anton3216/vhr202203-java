@@ -1,7 +1,12 @@
 package com.qingqiao.vhr.mapper;
 
 import com.qingqiao.vhr.bean.Position;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
+@Mapper
 public interface PositionMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +19,8 @@ public interface PositionMapper {
     int updateByPrimaryKeySelective(Position record);
 
     int updateByPrimaryKey(Position record);
+
+    List<Position> getAllPositions();
+
+    int deletePositionByIDS(@Param("ids") Integer[] ids);
 }

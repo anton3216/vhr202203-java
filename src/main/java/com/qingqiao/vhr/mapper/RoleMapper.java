@@ -20,4 +20,6 @@ public interface RoleMapper {
     int updateByPrimaryKey(Role record);
 
     List<Role> getRolesByHrId(Integer hrid);
+
+    List<Role> getAllRoles();
 }

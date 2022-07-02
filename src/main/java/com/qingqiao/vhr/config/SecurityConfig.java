@@ -12,10 +12,16 @@ import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 @Configuration
@@ -110,6 +116,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     httpServletResponse.getWriter().print(s);
                 })
                 .and()
-                .csrf().disable();
+                .csrf().disable()
+        /*.exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPoint() {
+            @Override
+            public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+                httpServletResponse.setContentType("application/json;charset=utf-8");
+                ResponseBean error = ResponseBean.error("尚未登录,请先登录!");
+                error.setStatus(401);
+                String s = new ObjectMapper().writeValueAsString(error);
+                httpServletResponse.getWriter().print(s);
+            }
+        })*/
+        ;
     }
 }

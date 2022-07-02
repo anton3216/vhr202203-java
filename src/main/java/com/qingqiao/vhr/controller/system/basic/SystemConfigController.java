@@ -1,4 +1,4 @@
-package com.qingqiao.vhr.controller;
+package com.qingqiao.vhr.controller.system.basic;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

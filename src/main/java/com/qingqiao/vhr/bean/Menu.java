@@ -1,7 +1,9 @@
 package com.qingqiao.vhr.bean;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.List;
+@JsonIgnoreProperties(value = {"handler"})
 public class Menu {
     private Integer id;
 
@@ -112,4 +114,5 @@ public class Menu {
     public void setChildren(List<Menu> children) {
         this.children = children;
     }
+
 }

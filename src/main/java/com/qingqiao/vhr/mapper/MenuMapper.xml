@@ -38,9 +38,55 @@
       <id column="rnameZh" property="nameZh"/>
     </collection>
   </resultMap>
+
+  <resultMap id="BaseResultMap3" type="com.qingqiao.vhr.bean.Menu" extends="BaseResultMap">
+    <collection property="children" ofType="com.qingqiao.vhr.bean.Menu" select="queryMenuById" column="id" fetchType="lazy">
+    </collection>
+  </resultMap>
+  <resultMap id="BaseResultMap4" type="com.qingqiao.vhr.bean.Menu" extends="BaseResultMap">
+    <collection property="children" ofType="com.qingqiao.vhr.bean.Menu">
+      <id column="id2" jdbcType="INTEGER" property="id" />
+      <result column="name2" jdbcType="VARCHAR" property="name" />
+      <result column="url2" jdbcType="VARCHAR" property="url" />
+      <result column="path2" jdbcType="VARCHAR" property="path" />
+      <result column="component2" jdbcType="VARCHAR" property="component" />
+      <result column="iconCls2" jdbcType="VARCHAR" property="iconCls" />
+      <result column="parentId2" jdbcType="VARCHAR" property="parentId" />
+      <result column="enabled2" jdbcType="VARCHAR" property="enabled" />
+      <association property="meta" javaType="com.qingqiao.vhr.bean.Meta">
+        <result column="keepAlive2" jdbcType="VARCHAR" property="keepAlive" />
+        <result column="requireAuth2" jdbcType="VARCHAR" property="requireAuth" />
+      </association>
+      <collection property="children" ofType="com.qingqiao.vhr.bean.Menu">
+        <id column="id3" jdbcType="INTEGER" property="id" />
+        <result column="name3" jdbcType="VARCHAR" property="name" />
+        <result column="url3" jdbcType="VARCHAR" property="url" />
+        <result column="path3" jdbcType="VARCHAR" property="path" />
+        <result column="component3" jdbcType="VARCHAR" property="component" />
+        <result column="iconCls3" jdbcType="VARCHAR" property="iconCls" />
+        <result column="parentId3" jdbcType="VARCHAR" property="parentId" />
+        <result column="enabled3" jdbcType="VARCHAR" property="enabled" />
+        <association property="meta" javaType="com.qingqiao.vhr.bean.Meta">
+          <result column="keepAlive3" jdbcType="VARCHAR" property="keepAlive" />
+          <result column="requireAuth3" jdbcType="VARCHAR" property="requireAuth" />
+        </association>
+      </collection>
+    </collection>
+  </resultMap>
   <sql id="Base_Column_List">
     id, name, url
   </sql>
+  <select id="getAllMenusByRID" resultMap="BaseResultMap4" parameterType="Integer">
+    select m1.*,m2.id id2,m2.component component2,m2.enabled enabled2,m2.iconCls iconCls2,m2.keepAlive keepAlive2,m2.`name` name2,m2.parentId parentId2,m2.path path2,m2.requireAuth requireAuth2,m2.url url2,m3.component component3,m3.enabled enabled3,m3.iconCls iconCls3,m3.id id3,m3.keepAlive keepAlive3,m3.`name` name3,m3.parentId parentId3,m3.path path3,m3.requireAuth requireAuth3,m3.url url3
+    from menu m1 join menu m2 on m1.id = m2.parentId join menu m3 on m2.id = m3.parentId join menu_role mr on mr.mid = m3.id where mr.rid = #{rid}
+  </select>
+  <select id="getAllMenus" resultMap="BaseResultMap3">
+    select m1.*,m2.id id2,m2.component component2,m2.enabled enabled2,m2.iconCls iconCls2,m2.keepAlive keepAlive2,m2.`name` name2,m2.parentId parentId2,m2.path path2,m2.requireAuth requireAuth2,m2.url url2,m3.component component3,m3.enabled enabled3,m3.iconCls iconCls3,m3.id id3,m3.keepAlive keepAlive3,m3.`name` name3,m3.parentId parentId3,m3.path path3,m3.requireAuth requireAuth3,m3.url url3
+    from menu m1 join menu m2 on m1.id = m2.parentId join menu m3 on m2.id = m3.parentId
+  </select>
+  <select id="queryMenuById" resultMap="BaseResultMap3">
+    select * from menu where parentId = #{id};
+  </select>
   <select id="getAllMenusByRid" resultMap="menuRole">
     select m.*,r.id rid,r.name rname,r.nameZh rnameZh from menu m join menu_role mr on mr.mid = m.id join role r on r.id = mr.rid
   </select>

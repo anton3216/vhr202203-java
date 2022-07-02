@@ -22,4 +22,8 @@ public interface MenuMapper {
     List<Menu> getMenuByHrId(Integer hrid);
 
     List<Menu> getAllMenusByRid();
+
+    List<Menu> getAllMenus();
+
+    List<Menu> getAllMenusByRID(Integer rid);
 }

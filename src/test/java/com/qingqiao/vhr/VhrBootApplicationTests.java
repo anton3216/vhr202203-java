@@ -8,6 +8,6 @@ class VhrBootApplicationTests {
 
     @Test
     void contextLoads() {
-    }
 
+    }
 }
