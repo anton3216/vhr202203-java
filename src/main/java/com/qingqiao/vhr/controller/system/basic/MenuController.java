@@ -44,7 +44,7 @@ public class MenuController {
     @GetMapping("/menus/{rid}")
     public String getAllMenusByRID(@PathVariable Integer rid) throws JsonProcessingException {
         List<Menu> menus = menuService.getAllMenusByRID(rid);
-        for (Menu menu : menus) {
+        /*for (Menu menu : menus) {
             System.out.println("一级菜单↓");
             System.out.println(menu.getName());
             List<Menu> children = menu.getChildren();
@@ -59,7 +59,7 @@ public class MenuController {
                     }
                 }
             }
-        }
+        }*/
         return new ObjectMapper().writeValueAsString(menus);
     }
 }

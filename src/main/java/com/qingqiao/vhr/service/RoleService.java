@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface RoleService {
     List<Role> getAllRoles();
+
+    Integer addRole(Role role);
+
+    int deleteRole(Integer id);
 }
