@@ -1,14 +1,27 @@
 package com.qingqiao.vhr.controller.emp.basic;
 
+import com.qingqiao.vhr.bean.Employee;
+import com.qingqiao.vhr.bean.ResponsePageBean;
+import com.qingqiao.vhr.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/employee/basic/emp")
+@RequestMapping("/employee/basic")
 public class EmpController {
-    @GetMapping("/")
-    public void test1() {
-        System.out.println("test emp");
+
+    @Autowired
+    private EmployeeService employeeService;
+
+    @GetMapping("/emp")
+    public ResponsePageBean getAllEmps(@RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue = "10") Integer size) {
+        ResponsePageBean bean = employeeService.getAllEmps(page,size);
+        return bean;
     }
 }
