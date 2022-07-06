@@ -20,8 +20,9 @@ public class EmpController {
     private EmployeeService employeeService;
 
     @GetMapping("/emp")
-    public ResponsePageBean getAllEmps(@RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue = "10") Integer size) {
-        ResponsePageBean bean = employeeService.getAllEmps(page,size);
+    public ResponsePageBean getAllEmps(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer size, @RequestParam(defaultValue = "") String name) {
+        System.out.println(size);
+        ResponsePageBean bean = employeeService.getAllEmps(page, size, name);
         return bean;
     }
 }

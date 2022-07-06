@@ -20,7 +20,7 @@ public interface EmployeeMapper {
 
     int updateByPrimaryKey(Employee record);
 
-    List<Employee> getAllEmps(@Param("page") Integer page,@Param("size") Integer size);
+    List<Employee> getAllEmps(@Param("page") Integer page, @Param("size") Integer size,@Param("name") String name);
 
-    Integer getTotal();
+    Integer getTotal(String name);
 }

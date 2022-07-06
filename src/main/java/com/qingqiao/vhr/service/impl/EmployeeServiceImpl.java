@@ -15,12 +15,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeMapper employeeMapper;
 
     @Override
-    public ResponsePageBean getAllEmps(Integer page, Integer size) {
+    public ResponsePageBean getAllEmps(Integer page, Integer size, String name) {
         if(page != null && page != 1){
             page = (page - 1) * size;
         }
-        Integer total = employeeMapper.getTotal();
-        List<Employee> allEmps = employeeMapper.getAllEmps(page, size);
+        Integer total = employeeMapper.getTotal(name);
+        List<Employee> allEmps = employeeMapper.getAllEmps(page, size, name);
         ResponsePageBean bean = new ResponsePageBean();
         bean.setData(allEmps);
         bean.setTotal(total);

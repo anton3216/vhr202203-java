@@ -73,6 +73,9 @@
                  join politicsstatus pol on e.politicId = pol.id
                  join joblevel j on e.jobLevelId = j.id
                  join position pos on e.posId = pos.id
+        <if test="name != null and name !=''">
+            where e.name like concat('%',#{name},'%')
+        </if>
         limit #{page},#{size}
     </select>
     <select id="getTotal" resultType="Integer">
@@ -83,6 +86,9 @@
                  join politicsstatus pol on e.politicId = pol.id
                  join joblevel j on e.jobLevelId = j.id
                  join position pos on e.posId = pos.id
+        <if test="name != null and name !=''">
+            where e.name like concat('%',#{name},'%')
+        </if>
     </select>
     <sql id="Base_Column_List">
         id
