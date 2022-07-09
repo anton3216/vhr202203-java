@@ -57,35 +57,36 @@
 
     <select id="getAllEmps" resultMap="BaseResultMap2">
         select e.*,
-               d.id       did,
-               d.`name`   dname,
-               n.id       nid,
-               n.name     nname,
-               pol.id     polid,
-               pol.`name` polname,
-               j.id       jid,
-               j.`name`   jname,
-               pos.id     posid,
-               pos.`name` posname
+        d.id did,
+        d.`name` dname,
+        n.id nid,
+        n.name nname,
+        pol.id polid,
+        pol.`name` polname,
+        j.id jid,
+        j.`name` jname,
+        pos.id posid,
+        pos.`name` posname
         from employee e
-                 join department d on e.departmentId = d.id
-                 join nation n on e.nationId = n.id
-                 join politicsstatus pol on e.politicId = pol.id
-                 join joblevel j on e.jobLevelId = j.id
-                 join position pos on e.posId = pos.id
+        left join department d on e.departmentId = d.id
+        left join nation n on e.nationId = n.id
+        left join politicsstatus pol on e.politicId = pol.id
+        left join joblevel j on e.jobLevelId = j.id
+        left join position pos on e.posId = pos.id
         <if test="name != null and name !=''">
             where e.name like concat('%',#{name},'%')
         </if>
+        order by e.id desc
         limit #{page},#{size}
     </select>
     <select id="getTotal" resultType="Integer">
         select count(*)
         from employee e
-                 join department d on e.departmentId = d.id
-                 join nation n on e.nationId = n.id
-                 join politicsstatus pol on e.politicId = pol.id
-                 join joblevel j on e.jobLevelId = j.id
-                 join position pos on e.posId = pos.id
+        join department d on e.departmentId = d.id
+        join nation n on e.nationId = n.id
+        join politicsstatus pol on e.politicId = pol.id
+        join joblevel j on e.jobLevelId = j.id
+        join position pos on e.posId = pos.id
         <if test="name != null and name !=''">
             where e.name like concat('%',#{name},'%')
         </if>

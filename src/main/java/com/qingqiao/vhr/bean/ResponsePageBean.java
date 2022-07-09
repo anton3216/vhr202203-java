@@ -1,8 +1,9 @@
 package com.qingqiao.vhr.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ResponsePageBean {
+public class ResponsePageBean implements Serializable {
     private List<?> data;
     private Integer total;
 

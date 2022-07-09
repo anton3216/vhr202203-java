@@ -1,6 +1,8 @@
 package com.qingqiao.vhr.bean;
 
-public class Politicsstatus {
+import java.io.Serializable;
+
+public class Politicsstatus  implements Serializable {
     private Integer id;
 
     private String name;

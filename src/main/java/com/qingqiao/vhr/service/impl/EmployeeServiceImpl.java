@@ -26,4 +26,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         bean.setTotal(total);
         return bean;
     }
+
+    @Override
+    public int addEmp(Employee employee) {
+        return employeeMapper.insertSelective(employee);
+    }
+
+    @Override
+    public int deleteEmp(Integer id) {
+        return employeeMapper.deleteByPrimaryKey(id);
+    }
 }

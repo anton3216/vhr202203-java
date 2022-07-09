@@ -1,6 +1,8 @@
 package com.qingqiao.vhr.bean;
 
-public class Nation {
+import java.io.Serializable;
+
+public class Nation  implements Serializable {
     private Integer id;
 
     private String name;
